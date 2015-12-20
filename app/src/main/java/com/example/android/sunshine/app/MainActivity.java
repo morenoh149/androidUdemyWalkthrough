@@ -8,6 +8,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import java.util.ArrayList;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -49,14 +53,36 @@ public class MainActivity extends ActionBarActivity {
      * A placeholder fragment containing a simple view.
      */
     public static class PlaceholderFragment extends Fragment {
+        ArrayAdapter<String> forecastAdapter;
 
         public PlaceholderFragment() {
         }
 
         @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+        public View onCreateView(LayoutInflater inflater,
+                                 ViewGroup container,
                                  Bundle savedInstanceState) {
+
+            ArrayList<String> weekForecast = new ArrayList<String>();
+            weekForecast.add("Today - Sunny - 88 / 63");
+            weekForecast.add("Today - Cloudy - 88 / 63");
+            weekForecast.add("Today - Sunny - 88 / 63");
+            weekForecast.add("Today - Cloudy - 88 / 63");
+            weekForecast.add("Today - Sunny - 88 / 63");
+            weekForecast.add("Today - Cloudy - 88 / 63");
+            weekForecast.add("Today - Cloudy - 88 / 63");
+
+             forecastAdapter = new ArrayAdapter<String>(
+                    getActivity(),
+                    R.layout.list_item_forecast,
+                    R.id.list_item_forecast_textView,
+                    weekForecast
+            );
+            // must inflate container (rootview) before finding listview reference
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+            ListView listView = (ListView) rootView.findViewById(R.id.listview_forecast);
+            listView.setAdapter(forecastAdapter);
+
             return rootView;
         }
     }
